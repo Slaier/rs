@@ -2,16 +2,6 @@
 
 ---
 
-## MAC :id=mac
-
-MAC地址共48位（6个字节），以十六进制表示。前24位由IEEE决定如何分配，后24位由实际生产该网络设备的厂商自行指定。
-
-`ff:ff:ff:ff:ff:ff`则作为广播地址。
-
-`01:xx:xx:xx:xx:xx`是多播地址，`01:00:5e:xx:xx:xx`是IPv4多播地址。
-
----
-
 ## 以太网帧 :id=ethernet-frame
 
 Ethernet II, IEEE 802.Q.
