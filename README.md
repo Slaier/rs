@@ -1,4 +1,4 @@
-# 路由交换技术 :id=rs
+# 路由交换技术
 
 >https://slaier.github.io/rs/
 
@@ -22,7 +22,7 @@
 
 ---
 
-## 网络资源 :id=resource
+## 网络资源
 
 + https://cshihong.github.io/categories/路由交换/
 + https://support.huawei.com/enterprise/zh/doc/
