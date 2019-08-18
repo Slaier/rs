@@ -1,6 +1,6 @@
 # 路由交换技术
 
->https://slaier.github.io/rs/
+>https://slaier.github.io/rs/#/
 
 ## 目录
 
@@ -22,4 +22,4 @@
 
 + https://cshihong.github.io/categories/路由交换/
 + https://support.huawei.com/enterprise/zh/doc/
-+ https://slaier.github.io/rs/
++ https://slaier.github.io/rs/#/
