@@ -9,5 +9,11 @@
   * [VLAN](switching/vlan.md)
   * [VLAN聚合](switching/vlan-aggregation.md)
   * [MuxVLAN & PVLAN](switching/mux-vlan.md)
+  * [VLAN Mapping](switching/vlan-mapping.md)
   * [MAC](switching/mac.md)
+  * 交换原理
   * [Trunk](switching/trunk.md)
+  * [Mirror](switching/mirror.md)
+  * [STP](switching/stp.md)
+  * [RSTP](switching/rstp.md)
+  * [MSTP](switching/mstp.md)
