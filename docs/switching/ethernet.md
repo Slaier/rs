@@ -12,7 +12,7 @@ Ethernet II, IEEE 802.Q.
 
 + `DA`(Desstination Address): 目标节点的`MAC`地址
 + `SA`(Source Address): 源节点的`MAC`地址
-+ `Type`: 指示`PayLoad`的类型
++ `Type`: <=1500为`length`，>=1536为`Ethertype`
 + `PayLoad`: 上层协议有效载荷
 + `FCR`: 4字节的校验和
 
@@ -23,7 +23,7 @@ Ethernet II, IEEE 802.Q.
 
 ### *帧间隙* :id=inter-frame-gap
 
-以太网传送数据时, 每两个帧之间存在帧间隙`IFG`(Inter Frame Gap)，帧间隙的作用是使介质中的信号处于稳定状态，同时让帧接收者对接收的帧作必要的处理(如调整缓存取的指针、更新计数、发中断让主机对报文进行处理), 通常为8或12字节.
+以太网传送数据时, 每两个帧之间存在帧间隙`IFG`(Inter Frame Gap)，帧间隙的作用是使介质中的信号处于稳定状态，同时让帧接收者对接收的帧作必要的处理(如调整缓存取的指针、更新计数、发中断让主机对报文进行处理), 通常为12字节.
 
 ---
 
@@ -36,7 +36,8 @@ Ethernet II, IEEE 802.Q.
 在我们实际中经常使用每秒传送实际数据帧的数目即`PPS`(packets per second)来表示报文的速率, `PPS`标志了交换机转发数据包能力的大小.
 
 ### *速率转换* :id=speed-transform
-假设数据帧的长度为 $k$ Bytes(包括CRC), 端口速率为$R$, 转化后的PPS为$N$, 那么: $N=\frac{R}{8*(k+8+12)}$.
+假设数据帧的长度为 $k$ Bytes, 前导码为8字节，帧间隙为12字节；
+ 端口速率为$R$, 转化后的PPS为$N$, 那么: $N=\frac{R}{8*(k+8+12)}$.
 
 ### *线速转发* :id=line-speed-forwarding
 端口在满负载的情况下, 对帧进行无差错的转发称为线速转发(一般是指64字节的小包).
