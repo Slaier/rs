@@ -1,8 +1,8 @@
-# STP 生成树协议 :id=stp
+# STP 生成树协议
 
 ---------
 
-## STP 概述 :id=introduction
+## STP 概述
 
 生成树协议 STP（Spanning Tree Protocol）将环形网络修剪成为一个无环的树型网络，避免报文在环形网络中的增生和无限循环。
 
@@ -14,7 +14,7 @@
 
 ---------------------------------
 
-## STP 相关概念 :id=concept
+## STP 相关概念
 
 *   根桥
     
@@ -45,7 +45,7 @@
     PC 的计算需要依据端口带宽来计算。
     
 
-### 端口角色 :id=port-role
+### 端口角色
 
 *   根端口（RP）：
     
@@ -60,60 +60,33 @@
     由于学习到其它设备发送的配置 BPDU 报文而阻塞的端口，作为根端口的备份端口，提供了从指定桥到根的另一条可切换路径。
     
 
-### 端口状态 :id=port-status
+### 端口状态
 
 | 端口状态 | 目的 | 说明 |
 | --- | --- | --- |
 | Forwarding（转发） | 端口既转发用户流量也处理 BPDU 报文。 | 只有根端口或指定端口才能进入 Forwarding 状态。 |
-| Learning(学习) | 设备会根据收到的用户流量构建 MAC 地址表，但不转发用户流量。 | 过渡状态，增加 Learning 状态防止临时环路。（15s） |
-| Listening（监听） | 确定端口角色，将选举出根桥、根端口和指定端口。 | 过渡状态。（15s） |
-| Blocking（阻塞） | 端口紧紧接收并处理 BPDU 报文，不转发用户流量 | 阻塞端口的最终状态。 |
+| Learning(学习) | 设备会根据收到的用户流量构建 MAC 地址表，但不转发用户流量。 | 过渡状态，增加 Learning 状态防止临时环路。|
+| Listening（监听） | 确定端口角色，将选举出根桥、根端口和指定端口。 | 过渡状态。 |
+| Blocking（阻塞） | 端口仅接收并处理 BPDU 报文，不转发用户流量 | 阻塞端口的最终状态。 |
 | Disabled（禁用） | 端口既不处理 BPDU 报文，也不转发用户流量。 | 端口状态为 Down。 |
 
-### 三种定时器 :id=timer
+### 三种定时器
 
 | 定时器类型 | 说明 |
 | --- | --- |
-| Hello Time | Hello Timer 定时器时间的大小控制配置 BPDU 发送间隔。 |
-| Forward Delay Timer | Forward Delay Timer 定时器时间的大小控制端口在 Listening 和 Learning 状态的持续时间。 |
-| Max Age | Max Age 定时器时间的大小控制存储配置 BPDU 的超时时间，超时认为根桥连接失败。 |
+| Hello Time | BPDU 发送间隔。默认2秒 |
+| Forward Delay Timer | 在 Listening 和 Learning 状态的持续时间。默认15s。 |
+| Max Age | BPDU 的接收超时时间，超时认为根桥连接失败。默认20s。 |
 
 ---------------------------------
 
-## STP 报文格式 :id=packet
-
-![](stp/stp.png)
-
-<div style="text-align:center;">图：STP 报文格式</div>
-
------------------------------
-
-## 报文字段解释 :id=field
-
-| 字段内容 | 说明 |
-| --- | --- |
-| Protocol Identifier | 协议 ID＝“0” |
-| Protocol Version Identifier | 协议版本标识符，STP 为 0，RSTP 为 2，MSTP 为 3。 |
-| BPDU Type | BPDU 类型，MSTP 为 0x02。0x00：STP 的 Configuration BPDU0x80：STP 的 TCN BPDU（Topology Change Notification BPDU）0x02：RST BPDU（Rapid Spanning-Tree BPDU）或者 MST BPDU（Multiple Spanning-Tree BPDU） |
-| Flags | 对于 “标记域”（Flags），第一个 bit（左边、高位 bit）表示 “TCA（拓扑改变响应）”，最后一个 bit（右边、低位 bit）表示 “TC（拓扑改变）”。 |
-| Root Identifier | 网桥 ID 都是 8 个字节——前两个字节是网桥优先级，后 6 个字节是网桥 MAC 地址。 |
-| Root Path Cost | 根路径开销，本端口累计到根桥的开销。 |
-| Bridge Identifier | 发送者 BID，本交换机的 BID。 |
-| Port Identifier | 发送端口 PID，发送该 BPDU 的端口 ID。 |
-| Message Age | 该 BPDU 的消息年龄。 |
-| Max Age | 消息老化年龄。 |
-| Hello Time | 发送两个相邻 BPDU 间的时间间隔。 |
-| Forward Delay | 控制 Listening 和 Learning 状态的持续时间。 |
-
----------------------------
-
-## STP 原理 :id=principle
+## STP 原理
 
 找到冗余的一端，然后阻塞端口，避免环路。
 
 ---------------------------
 
-## STP 版本 :id=version
+## STP 版本
 
 1.  IEEE 802.1D STP
 2.  IEEE802.1W RSTP
@@ -121,7 +94,7 @@
 
 ------------------------------------
 
-## STP 的选举过程 :id=vote
+## STP 的选举过程
 
 1.  在一个交换网络中选举一个根桥，根桥是设备的概念。
     
@@ -135,7 +108,7 @@
     
 --------------------------
 
-## 根桥的选举 :id=rb-vote
+## 根桥的选举
 
 1.  通过比较 BID 选举，优选 BID 小的。BID 由优先级 + MAC 地址组成。
 2.  首先比较优先级，优先级越小越优。
@@ -143,7 +116,7 @@
 
 --------------------------------
 
-## 指定端口的选举 :id=ap-vote
+## 指定端口的选举
 
 1.  比较 RID，优选小的。
 2.  比较到达根桥的 RPC（Root Path Cost），越小越优。
@@ -153,7 +126,7 @@
 
 ---------------------------------------------
 
-## BPDU 报文的两种类型 :id=bpdu-type
+## BPDU 报文的两种类型
 
 *   配置 BPDU
     
@@ -165,7 +138,7 @@
     
 ---------------------------
 
-## STP 故障 :id=issue
+## STP 故障
 
 *   根桥故障
     
@@ -187,7 +160,7 @@
     
 ------------------------------------------------
 
-## STP 用于拓扑改变的报文 :id=change-pkt
+## STP 用于拓扑改变的报文
 
 *   TCN BPDU 报文：拓扑改变通知。
     
@@ -201,7 +174,7 @@
     
 ---------------------------------
 
-## STP 拓扑改变 :id=change
+## STP 拓扑改变
 
 1.  如果非根桥上发生拓扑变化，向根桥发送 TCN BPDU 包，通告根桥拓扑已改变。
 2.  上联的非根桥从指定端口收到 TCN BPDU 包后，会向发送者回复 TCA flag 位置位的配置 BPDU 包，同时继续向根桥发送 TCN BPDU 包。
@@ -210,14 +183,9 @@
 
 ---------------------------------------------
 
-## STP 触发拓扑改变条件 :id=condition
+## STP 触发拓扑改变条件
 
 1.  一个端口从 forwarding 状态过渡到 disable 或 blocking 状态。
 2.  一个非根桥如果从指定端口接收到 TCN BPDU 包，需要向根桥装发 TCN BPDU 包。
 3.  一个端口进入转发状态，并且本地已存在一个指端端口。
 
-如下图，需将 SW1 配置为根桥，SW2 配置为备份根桥。通过在三台交换机中配置 STP，对某个端口进行阻塞，防止网络出环。
-
-![](stp/stp-config.png)
-
-<div style="text-align:center;">图：STP 配置拓扑</div>

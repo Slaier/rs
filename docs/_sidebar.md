@@ -1,14 +1,9 @@
 * [前言](README.md)
-
-* 交换
-  
-  * [以太网](switching/ethernet.md)
-  * [VLAN](switching/vlan.md)
-  * [MAC](switching/mac.md)
-  * [Trunk](switching/trunk.md)
-  * [Mirror](switching/mirror.md)
-  * [STP](switching/stp.md)
-  * [RSTP](switching/rstp.md)
-  * [MSTP](switching/mstp.md)
-
-* 路由
+* [以太网](switching/ethernet.md)
+* [VLAN](switching/vlan.md)
+* [MAC](switching/mac.md)
+* [Trunk](switching/trunk.md)
+* [Mirror](switching/mirror.md)
+* [STP](switching/stp.md)
+* [RSTP](switching/rstp.md)
+* [MSTP](switching/mstp.md)
